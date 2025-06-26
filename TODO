@@ -1,0 +1,4 @@
+TO-DO List
+==========
+- Improve ApiService->loadConfiguration with different config file formats.
+- Add a ApiService->getUrlBuilder() method to build urls.

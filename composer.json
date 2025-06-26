@@ -1,0 +1,23 @@
+{
+  "name": "artisan/routing",
+  "description": "Handles HTTP requests, routing or rejecting them according to the defined rules.",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Airam Batista",
+      "email": "airamb@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.3",
+    "symfony/routing": "^7.3",
+    "symfony/http-foundation": "^7.3",
+    "symfony/serializer": "^7.3",
+    "pimple/pimple": "^3.0",
+    "spatie/array-to-xml": "^3.4"
+  },
+  "psr-4": {
+    "Artisan\\Routing\\": "src/"
+  },
+  "minimum-stability": "dev"
+}
