@@ -1,4 +1,4 @@
-# Routing Component
+# Api Component
 This component is a complete API system capable of receiving HTTP requests and returning responses in various formats.
 
 ## Requirements
