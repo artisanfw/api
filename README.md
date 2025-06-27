@@ -14,7 +14,6 @@ PHP 8.3+
 <?php
 namespace Api;
 
-use Artisan\Home\Routers\HomeRouter;
 use Artisan\Routing\Entities\ApiOptions;
 use Artisan\Routing\Managers\ApiManager;
 use Artisan\Routing\Services\ApiService;
