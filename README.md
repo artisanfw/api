@@ -146,3 +146,68 @@ The API supports a configuration file in php format that must return an associat
 $apiOptions->setConfigFile(PROJECT_DIR . '/config.php');
 ```
 By convention, the `PROJECT_DIR` constant must be defined in the Bootstrap file. Other Artisan services use this constant to navigate through the project.
+
+## ApiManager
+The ApiManager is responsible for managing the routes and processing the request.
+```php
+$apiManager = new ApiManager();
+// ... ApiManager setters ...
+$apiManager->processRequest(ApiService::i()->getRequest());
+```
+
+### Authentication
+The API supports authentication through the `_authRequired` parameter in each route. If this parameter is set to `true`, the request must be authenticated.
+
+The API uses the `Artisan\Routing\Interfaces\IAuthenticationStrategy` interface to authenticate the request.
+You can create your own authentication strategy and set it in the ApiManager.
+```php
+$apiManager->setAuthStrategy(new YourAuthenticationStrategy());
+```
+
+### Middlewares
+You can call a preprocessor or postprocessor for each request.
+```php
+$apiManager->setPreprocessor(new YourPreprocessor());
+$apiManager->setPostprocessor(new YourPostprocessor());
+```
+The pre/post processors uses the `Artisan\Routing\Interfaces\IMiddleware` and are applied to all incoming requests.
+
+* Preprocessors are executed `before` the controller is called.
+* Postprocessors are executed `after` the controller is called.
+
+You can code a class that works as pre and post processor. The methods `before` and `after` determines if a Middleware is a pre or post processor.  
+
+## ApiService
+The ApiService is a container for the ApiOptions, Context, Request, etc.
+
+### ApiOptions
+In case you need to access the ApiOptions, you can access using:
+```php
+$apiOptions = ApiService::i()->getApiOptions();
+```
+Usually you don't need to access the ApiOptions directly.
+
+### Context
+In case you need to access the Context. You can access it using:
+```php
+$context = ApiService::i()->getContext();
+```
+Usually is better to use the Request instead of the Context.
+
+### Configuration
+You can access the configuration file set in the ApiOptions using:
+```php
+$config = ApiService::i()->getConfig();
+```
+The configuration is an associative array of parameters.
+
+### Request
+Request is a class that contains information about the request. You can access it using:
+```php
+$request = ApiService::i()->getRequest();
+```
+### Response
+Response is a class that contains information about the response.
+```php
+$response = ApiService::i()->getResponse();
+```
