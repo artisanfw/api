@@ -211,6 +211,14 @@ Response is a class that contains information about the response.
 ```php
 $response = ApiService::i()->getResponse();
 ```
+### Environment
+If your code needs to process logic that depends on the environment, you can check if it's a development environment using:
+```php
+ ApiService::i()->isDevelopment();
+```
+You can also get the name of the environment using the `ENVIRONMENT` constant.
+If you've created a configuration file with the `environment` key, you can assign custom environment names.
+In the absence of an environment configuration, it will always be considered a **development** environment by default.
 
 ## Controllers
 Think of controllers as the endpoints of your API. They are responsible for processing the request and returning the response.
