@@ -215,7 +215,7 @@ $response = ApiService::i()->getResponse();
 ```
 
 ## Controllers
-Think of controllers as the endpoints of your API.. They are responsible for processing the request and returning the response.
+Think of controllers as the endpoints of your API. They are responsible for processing the request and returning the response.
 Controllers receive two parameters: `IApiRequest` and `IApiResponse`
 
 Here an example:

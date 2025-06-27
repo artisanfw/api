@@ -16,8 +16,10 @@
     "pimple/pimple": "^3.0",
     "spatie/array-to-xml": "^3.4"
   },
-  "psr-4": {
-    "Artisan\\Routing\\": "src/"
+  "autoload": {
+    "psr-4": {
+      "Artisan\\Routing\\": "src/"
+    }
   },
   "minimum-stability": "dev"
 }
