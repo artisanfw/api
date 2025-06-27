@@ -216,19 +216,19 @@ $response = ApiService::i()->getResponse();
 
 ## Controllers
 Think of controllers as the endpoints of your API. They are responsible for processing the request and returning the response.
-Controllers receive two parameters: `IApiRequest` and `IApiResponse`
+Controllers receive two parameters: `Request` and `IApiResponse`
 
 Here an example:
 ```php
 <?php
 namespace Api\Controllers;
 
-use Artisan\Routing\Interfaces\IApiRequest;
 use Artisan\Routing\Interfaces\IApiResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController
 {
-    public function landing(IApiRequest $request, IApiResponse $response): void
+    public function landing(Request $request, IApiResponse $response): void
     {
         $response->setPayload(['message' => 'Hello World!']);
     }
