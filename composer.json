@@ -1,5 +1,5 @@
 {
-  "name": "artisanfw/routing",
+  "name": "artisanfw/api",
   "description": "Handles HTTP requests, routing or rejecting them according to the defined rules.",
   "type": "library",
   "authors": [
