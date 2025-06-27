@@ -8,7 +8,9 @@ use Artisan\Routing\Interfaces\IApiResponse;
 use Exception;
 use Pimple\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouteCollection;
 
 class ApiService extends Container
 {
@@ -92,8 +94,14 @@ class ApiService extends Container
         return $default;
     }
 
-    public function getUrlBuilder() {
-        //TODO
+    public function setUrlGenerator(RouteCollection $routes): void
+    {
+        $this['url_generator'] = new UrlGenerator($routes, $this->getContext());
+    }
+
+    public function getUrlGenerator()
+    {
+        return $this['url_generator'];
     }
 
     /**
@@ -104,6 +112,9 @@ class ApiService extends Container
         $this['api_options'] = $apiOptions;
 
         $config = $this->loadConfiguration($apiOptions->getConfigFile());
+        if (!isset($config['environment'])) {
+            $config['environment'] = ApiOptions::ENV_DEVELOPMENT;
+        }
         $this['config'] = $config;
 
         define('ENVIRONMENT', $config['environment']);
@@ -126,6 +137,8 @@ class ApiService extends Container
      */
     private function loadConfiguration(string $configFile): array
     {
-        return require $configFile;
+        return ($configFile)
+            ? require $configFile
+            : [];
     }
 }

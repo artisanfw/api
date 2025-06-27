@@ -94,6 +94,7 @@ class ApiManager
 
     public function processRequest(Request $request): void
     {
+        $this->fillUrlGenerator();
         $this->instanceApiResponse();
 
         try {
@@ -124,6 +125,15 @@ class ApiManager
         } catch (HttpException $e) {
             $this->sendError($e->getCode(), $e->getMessage());
         }
+    }
+
+    private function fillUrlGenerator(): void
+    {
+        $routes = [];
+        foreach ($this->routers as $router) {
+            $routes = array_merge($routes, $router->getRoutes()->all());
+        }
+        ApiService::i()->setUrlGenerator(new \Symfony\Component\Routing\RouteCollection($routes));
     }
 
     private function instanceApiResponse(): void

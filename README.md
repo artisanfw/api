@@ -6,7 +6,7 @@ PHP 8.3+
 
 ## Installation
 ```bash
-  composer require artisanfw/routing
+  composer require artisanfw/api
 ```
 ## Getting Started
 1. Create a `Bootstrap.php` file in your `src/` folder and add the following code:
