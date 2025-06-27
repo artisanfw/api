@@ -1,5 +1,5 @@
 # Routing Component
-This component is a complete API capable of receiving HTTP requests and returning responses in various formats.
+This component is a complete API system capable of receiving HTTP requests and returning responses in various formats.
 
 ## Requirements
 PHP 8.3+
@@ -9,7 +9,9 @@ PHP 8.3+
   composer require artisanfw/api
 ```
 ## Getting Started
-1. Create a `Bootstrap.php` file in your `src/` folder and add the following code:
+
+**1.** Create a `Bootstrap.php` file in your `src/` folder and add the following code:
+
 ```php
 <?php
 namespace Api;
@@ -47,7 +49,7 @@ class Bootstrap
     }
 }
 ```
-2. Call the `run` method of the Bootstrap class in your index.php (example below):
+**2.** Call the `run` method of the `Bootstrap` class in your `index.php` (example below):
 ```php
 <?php
 error_reporting(E_ALL);
@@ -56,12 +58,12 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Api\Bootstrap)->run(); 
 ```
-3. Create the routes you need and add them to the ApiManager within the Bootstrap.
+**3.** Create the routes you need and add them to the ApiManager within the Bootstrap.
 ```php
 $apiManager = new ApiManager();
 $apiManager->addRouter(new RouterList());
 ```
-You can add different Routers to separate areas of your project or use a single route class.
+You can add different routers to organize separate areas of your project, or use a single Router class.
 
 ## Routers
 To create a Router, create a class that implements the `Artisan\Routing\Interfaces\IRouter` interface.
@@ -116,12 +118,12 @@ $apiOptions->setResponseType(ApiOptions::RESPONSE_JSON);
 The response is automatically encoded before being sent from an array.
 
 ### Headers
-You can configure the headers that are accepted. The API already provides an array of common headers, but you can define the ones you need.
+You can configure the headers that are accepted. The API provides a predefined set of common headers, but you can define your own as needed.
 ```php
 $apiOptions->setAllowedHeaders(ApiOptions::COMMON_CORS_HEADERS)
 ```
 ### Methods
-The methods accepted here are those that can be used in the routes. For example, if only `GET` is accepted, no route can implement a `POST` method.
+These methods define which HTTP verbs are allowed in the routes. For example, if only `GET` is accepted, no route can implement a `POST` method.
 ```php
 $apiOptions->setAllowedMethods(ApiOptions::COMMON_CORS_METHODS);
 ```
@@ -140,7 +142,7 @@ If your project is limited to certain hosts connecting to the API, you can defin
 $apiOptions->setAllowedHosts(['localhost', 'domain.com']);
 ```
 ## Service Configuration
-The API supports a configuration file in php format that must return an associative array of parameters. This file uses keys to define the configurations for each service.
+The API supports a configuration file in PHP format, which must return an associative array of parameters. This file uses keys to define the configurations for each service.
 ```php
 <?php
 $apiOptions->setConfigFile(PROJECT_DIR . '/config.php');
@@ -170,7 +172,7 @@ You can call a preprocessor or postprocessor for each request.
 $apiManager->setPreprocessor(new YourPreprocessor());
 $apiManager->setPostprocessor(new YourPostprocessor());
 ```
-The pre/post processors uses the `Artisan\Routing\Interfaces\IMiddleware` and are applied to all incoming requests.
+The pre/post processors use the `Artisan\Routing\Interfaces\IMiddleware` interface and are applied to all incoming requests.
 
 * Preprocessors are executed `before` the controller is called.
 * Postprocessors are executed `after` the controller is called.
@@ -192,7 +194,7 @@ In case you need to access the Context. You can access it using:
 ```php
 $context = ApiService::i()->getContext();
 ```
-Usually is better to use the Request instead of the Context.
+Usually, it’s better to use the Request instead of the Context.
 
 ### Configuration
 You can access the configuration file set in the ApiOptions using:
@@ -210,4 +212,25 @@ $request = ApiService::i()->getRequest();
 Response is a class that contains information about the response.
 ```php
 $response = ApiService::i()->getResponse();
+```
+
+## Controllers
+Think of controllers as the endpoints of your API.. They are responsible for processing the request and returning the response.
+Controllers receive two parameters: `IApiRequest` and `IApiResponse`
+
+Here an example:
+```php
+<?php
+namespace Api\Controllers;
+
+use Artisan\Routing\Interfaces\IApiRequest;
+use Artisan\Routing\Interfaces\IApiResponse;
+
+class HomeController
+{
+    public function landing(IApiRequest $request, IApiResponse $response): void
+    {
+        $response->setPayload(['message' => 'Hello World!']);
+    }
+}
 ```
