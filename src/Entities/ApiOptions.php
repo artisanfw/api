@@ -138,13 +138,14 @@ class ApiOptions
     /**
      * @throws \Exception
      */
-    public function setConfigFile(string $configFile): void
+    public function setConfigFile(string $configFile): ApiOptions
     {
         if (!file_exists($configFile)) {
             throw new InternalServerErrorException('Configuration file not found!');
         }
 
         $this->configFile = $configFile;
+        return $this;
     }
 
     public function getConfigFile(): string

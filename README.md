@@ -144,8 +144,7 @@ $apiOptions->setAllowedHosts(['localhost', 'domain.com']);
 ## Service Configuration
 The API supports a configuration file in PHP format, which must return an associative array of parameters. This file uses keys to define the configurations for each service.
 ```php
-<?php
-$apiOptions->setConfigFile(PROJECT_DIR . '/config.php');
+$apiOptions->setConfigFile(PROJECT_DIR . '/.config.php');
 ```
 By convention, the `PROJECT_DIR` constant must be defined in the Bootstrap file. Other Artisan services use this constant to navigate through the project.
 
@@ -187,19 +186,18 @@ In case you need to access the ApiOptions, you can access using:
 ```php
 $apiOptions = ApiService::i()->getApiOptions();
 ```
-Usually you don't need to access the ApiOptions directly.
+Usually, you don't need to access the ApiOptions directly.
 
 ### Context
 In case you need to access the Context. You can access it using:
 ```php
 $context = ApiService::i()->getContext();
 ```
-Usually, it’s better to use the Request instead of the Context.
 
 ### Configuration
 You can access the configuration file set in the ApiOptions using:
 ```php
-$config = ApiService::i()->getConfig();
+$config = ApiService::i()->getConfig($key, $fallbackOptional);
 ```
 The configuration is an associative array of parameters.
 

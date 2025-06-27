@@ -86,12 +86,12 @@ class ApiService extends Container
         return $this['route_params'];
     }
 
-    public function getConfig(string $key, $default = null)
+    public function getConfig(string $key, $fallback = null)
     {
         if (isset($this['config'][$key])) {
             return $this['config'][$key];
         }
-        return $default;
+        return $fallback;
     }
 
     public function setUrlGenerator(RouteCollection $routes): void
