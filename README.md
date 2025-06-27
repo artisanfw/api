@@ -25,7 +25,7 @@ class Bootstrap
 {
     public function run(): void
     {
-        define('PROJECT_DIR', __DIR__);
+        define('PROJECT_DIR', dirname(__DIR__));
 
         try {
             $apiOptions = (new ApiOptions())
