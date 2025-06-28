@@ -240,3 +240,18 @@ class HomeController
     }
 }
 ```
+## Sending Errors
+All user-facing errors are represented as Exceptions. The API layer is responsible for converting these exceptions into HTTP responses with the corresponding status codes.
+You may provide an explanatory message when throwing an exception:
+```php
+throw new \Artisan\Routing\Exceptions\BadRequestException('All fields are required');
+```
+
+For convenience, a predefined set of common HTTP error responses is available through the IApiResponse interface, allowing you to return standardized error responses directly:
+```php
+$response->errorPaymentRequired();
+$response->errorUnsupportedMediaType();
+$response->errorBadRequest('All fields are required');
+...
+```
+

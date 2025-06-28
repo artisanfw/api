@@ -2,6 +2,20 @@
 
 namespace Artisan\Routing\Entities;
 
+use Artisan\Routing\Exceptions\AuthorizationRequiredException;
+use Artisan\Routing\Exceptions\BadRequestException;
+use Artisan\Routing\Exceptions\ForbiddenException;
+use Artisan\Routing\Exceptions\HttpException;
+use Artisan\Routing\Exceptions\IAmATeapotException;
+use Artisan\Routing\Exceptions\InternalServerErrorException;
+use Artisan\Routing\Exceptions\MethodNotAllowedException;
+use Artisan\Routing\Exceptions\NotFoundException;
+use Artisan\Routing\Exceptions\NotImplementedException;
+use Artisan\Routing\Exceptions\PaymentRequiredException;
+use Artisan\Routing\Exceptions\ServiceTemporarilyUnavailableException;
+use Artisan\Routing\Exceptions\TooManyRequestsException;
+use Artisan\Routing\Exceptions\UnavailableForLegalReasonsException;
+use Artisan\Routing\Exceptions\UnsupportedMediaTypeException;
 use Artisan\Routing\Interfaces\IApiResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -99,5 +113,115 @@ class ApiResponse implements IApiResponse
         return $this;
     }
 
+    /**
+     * @throws AuthorizationRequiredException
+     */
+    public function errorAuthorizationRequired(string $message = ''): void
+    {
+        throw new AuthorizationRequiredException($message);
+    }
 
+    /**
+     * @throws BadRequestException
+     */
+    public function errorBadRequest(string $message = ''): void
+    {
+        throw new BadRequestException($message);
+    }
+
+    /**
+     * @throws ForbiddenException
+     */
+    public function errorForbidden(string $message = ''): void
+    {
+        throw new ForbiddenException($message);
+    }
+
+    /**
+     * @throws HttpException
+     */
+    public function errorHttp(string $message = ''): void
+    {
+        throw new HttpException($message);
+    }
+
+    /**
+     * @throws IAmATeapotException
+     */
+    public function errorIAmATeapot(string $message = ''): void
+    {
+        throw new IAmATeapotException($message);
+    }
+
+    /**
+     * @throws InternalServerErrorException
+     */
+    public function errorInternalServerError(string $message = ''): void
+    {
+        throw new InternalServerErrorException($message);
+    }
+
+    /**
+     * @throws MethodNotAllowedException
+     */
+    public function errorMethodNotAllowed(string $message = ''): void
+    {
+        throw new MethodNotAllowedException($message);
+    }
+
+    /**
+     * @throws NotFoundException
+     */
+    public function errorNotFound(string $message = ''): void
+    {
+        throw new NotFoundException($message);
+    }
+
+    /**
+     * @throws NotImplementedException
+     */
+    public function errorNotImplemented(string $message = ''): void
+    {
+        throw new NotImplementedException($message);
+    }
+
+    /**
+     * @throws PaymentRequiredException
+     */
+    public function errorPaymentRequired(string $message = ''): void
+    {
+        throw new PaymentRequiredException($message);
+    }
+
+    /**
+     * @throws ServiceTemporarilyUnavailableException
+     */
+    public function errorServiceTemporarilyUnavailable(string $message = ''): void
+    {
+        throw new ServiceTemporarilyUnavailableException($message);
+    }
+
+    /**
+     * @throws TooManyRequestsException
+     */
+    public function errorTooManyRequests(string $message = ''): void
+    {
+        throw new TooManyRequestsException($message);
+    }
+
+    /**
+     * @throws UnavailableForLegalReasonsException
+     */
+    public function errorUnavailableForLegalReasons(string $message = ''): void
+    {
+        throw new UnavailableForLegalReasonsException($message);
+    }
+
+    /**
+     * @throws UnsupportedMediaTypeException
+     */
+    public function errorUnsupportedMediaType(string $message = ''): void
+    {
+        throw new UnsupportedMediaTypeException($message);
+    }
 }
