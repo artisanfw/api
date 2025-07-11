@@ -28,9 +28,7 @@ class ApiManager
     private ?IAuthenticationStrategy $authStrategy = null;
 
     /** @var IMiddleware[] */
-    private array $preProcessMiddleware = [];
-    /** @var IMiddleware[] */
-    private array $postProcessMiddleware = [];
+    private array $middlewares = [];
 
     public function __construct()
     {
@@ -74,15 +72,9 @@ class ApiManager
         header('Access-Control-Allow-Credentials: true');
     }
 
-    public function addPreProcessor(IMiddleware $preProcessor): ApiManager
+    public function addMiddleware(IMiddleware $middleware): ApiManager
     {
-        $this->preProcessMiddleware[$preProcessor::class] = $preProcessor;
-        return $this;
-    }
-
-    public function addPostProcessor(IMiddleware $postProcessor): ApiManager
-    {
-        $this->postProcessMiddleware[$postProcessor::class] = $postProcessor;
+        $this->middlewares[$middleware::class] = $middleware;
         return $this;
     }
 
@@ -207,15 +199,11 @@ class ApiManager
 
         $response = ApiService::i()->getResponse();
 
-        foreach ($this->preProcessMiddleware as $middleware) {
-            $middleware->before($routeParams, $request, $response);
+        foreach ($this->middlewares as $middleware) {
+            $middleware->run($routeParams, $request, $response);
         }
 
         $controller->{$classFunction}($request, $response);
-
-        foreach ($this->postProcessMiddleware as $middleware) {
-            $middleware->after($routeParams, $request, $response);
-        }
 
         $this->response->send();
     }

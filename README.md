@@ -166,17 +166,14 @@ $apiManager->setAuthStrategy(new YourAuthenticationStrategy());
 ```
 
 ### Middlewares
-You can call a preprocessor or postprocessor for each request.
+You can call a preprocessor for each request.
 ```php
-$apiManager->setPreprocessor(new YourPreprocessor());
-$apiManager->setPostprocessor(new YourPostprocessor());
+$apiManager->setMiddleware(new YourMiddleware());
 ```
-The pre/post processors use the `Artisan\Routing\Interfaces\IMiddleware` interface and are applied to all incoming requests.
+The pre processors use the `Artisan\Routing\Interfaces\IMiddleware` interface and are applied to all incoming requests.
 
-* Preprocessors are executed `before` the controller is called.
-* Postprocessors are executed `after` the controller is called.
+Middleware are executed `after` the Authentication and `before` the controller is called.
 
-You can code a class that works as pre and post processor. The methods `before` and `after` determines if a Middleware is a pre or post processor.  
 
 ## ApiService
 The ApiService is a container for the ApiOptions, Context, Request, etc.
