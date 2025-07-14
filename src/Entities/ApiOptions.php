@@ -136,7 +136,7 @@ class ApiOptions
     }
 
     /**
-     * @throws \Exception
+     * @throws InternalServerErrorException
      */
     public function setConfigFile(string $configFile): ApiOptions
     {

@@ -3,6 +3,7 @@
 namespace Artisan\Routing\Services;
 
 use Artisan\Routing\Entities\ApiOptions;
+use Artisan\Routing\Entities\Config;
 use Artisan\Routing\Factories\ApiResponseFactory;
 use Artisan\Routing\Interfaces\IApiResponse;
 use Exception;
@@ -86,14 +87,6 @@ class ApiService extends Container
         return $this['route_params'];
     }
 
-    public function getConfig(string $key, $fallback = null)
-    {
-        if (isset($this['config'][$key])) {
-            return $this['config'][$key];
-        }
-        return $fallback;
-    }
-
     public function setUrlGenerator(RouteCollection $routes): void
     {
         $this['url_generator'] = new UrlGenerator($routes, $this->getContext());
@@ -111,13 +104,7 @@ class ApiService extends Container
     {
         $this['api_options'] = $apiOptions;
 
-        $config = $this->loadConfiguration($apiOptions->getConfigFile());
-        if (!isset($config['environment'])) {
-            $config['environment'] = ApiOptions::ENV_DEVELOPMENT;
-        }
-        $this['config'] = $config;
-
-        define('ENVIRONMENT', $config['environment']);
+        Config::load($apiOptions->getConfigFile());
 
         //Request
         $context = new RequestContext();
@@ -130,15 +117,5 @@ class ApiService extends Container
         $this['api_response_factory'] = function() {
             return new ApiResponseFactory();
         };
-    }
-
-    /**
-     * @throws Exception
-     */
-    private function loadConfiguration(string $configFile): array
-    {
-        return ($configFile)
-            ? require $configFile
-            : [];
     }
 }

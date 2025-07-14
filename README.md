@@ -148,6 +148,11 @@ $apiOptions->setConfigFile(PROJECT_DIR . '/.config.php');
 ```
 By convention, the `PROJECT_DIR` constant must be defined in the Bootstrap file. Other Artisan services use this constant to navigate through the project.
 
+You can access the configuration settings using:
+```php
+$data = Config::get($key, $fallbackOptional);
+```
+
 ## ApiManager
 The ApiManager is responsible for managing the routes and processing the request.
 ```php
@@ -174,7 +179,6 @@ The pre processors use the `Artisan\Routing\Interfaces\IMiddleware` interface an
 
 Middleware are executed `after` the Authentication and `before` the controller is called.
 
-
 ## ApiService
 The ApiService is a container for the ApiOptions, Context, Request, etc.
 
@@ -190,13 +194,6 @@ In case you need to access the Context. You can access it using:
 ```php
 $context = ApiService::i()->getContext();
 ```
-
-### Configuration
-You can access the configuration file set in the ApiOptions using:
-```php
-$config = ApiService::i()->getConfig($key, $fallbackOptional);
-```
-The configuration is an associative array of parameters.
 
 ### Request
 Request is a class that contains information about the request. You can access it using:
