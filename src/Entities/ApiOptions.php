@@ -35,7 +35,7 @@ class ApiOptions
         'Token',
     ];
 
-    const array COMMON_CORS_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'];
+    const array COMMON_CORS_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
 
     private string $label = 'unknown';
     private string $requestType = '';
